@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe WikisController, type: :controller do
+RSpec.describe Wiki2sController, type: :controller do
   let(:my_user2) { User2.create!(name: "Blocipedia User", email: "user@blocipedia.com", password: "helloworld") }
-  let(:my_wiki2) { Wiki2.create!(title: "Wiki Page", body: "This is a Wiki Page", private: true, user: my_user) }
+  let(:my_wiki2) { Wiki2.create!(title: "Wiki Page", body: "This is a Wiki Page", private: true, user: my_user2) }
 
    describe "GET index" do
      it "returns http success" do

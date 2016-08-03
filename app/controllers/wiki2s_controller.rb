@@ -13,7 +13,7 @@ class Wiki2sController < ApplicationController
 
   def create
     @wiki2 = @wiki2.new(wiki2_params)
-    @wiki2.user = current_user
+    @wiki2.user = current_user #user or user2?
     
     if @wiki2.save
       flash[:notice] = "Wiki was saved."
