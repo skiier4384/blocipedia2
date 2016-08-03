@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
     
 <<<<<<< HEAD
+<<<<<<< HEAD
   #get 'wikis2/index'
 
   #get 'wikis2/show'
@@ -11,6 +12,16 @@ Rails.application.routes.draw do
   
   resources wikis2
 =======
+=======
+  get 'user2s/index'
+
+  get 'user2s/show'
+
+  get 'user2s/new'
+
+  get 'user2s/edit'
+
+>>>>>>> 4a_crud
   #get 'wiki2s/index'
 
   #get 'wiki2s/show'
