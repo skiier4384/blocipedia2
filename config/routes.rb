@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
     
+  get 'user2s/index'
+
+  get 'user2s/show'
+
+  get 'user2s/new'
+
+  get 'user2s/edit'
+
   #get 'wiki2s/index'
 
   #get 'wiki2s/show'
