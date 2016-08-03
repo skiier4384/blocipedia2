@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  
-  get 'pages/index'
-
+    
  devise_for :user2s
+ 
+ get 'pages/index'
   
  root 'pages#index'
  

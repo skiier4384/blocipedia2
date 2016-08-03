@@ -5,5 +5,4 @@ class User2 < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
          
   before_save { self.email = email.downcase if email.present? }
-  
 end
