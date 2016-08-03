@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
     
-  get 'wikis2/index'
+  #get 'wiki2s/index'
 
-  get 'wikis2/show'
+  #get 'wiki2s/show'
 
-  get 'wikis2/new'
+  #get 'wiki2s/new'
 
-  get 'wikis2/edit'
+  #get 'wiki2s/edit'
+
+  resources :wiki2s
 
  devise_for :user2s
  
