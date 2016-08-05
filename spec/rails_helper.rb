@@ -11,6 +11,10 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   #Syntax for FactoryGirl
   config.include FactoryGirl::Syntax::Methods
+  
+  #Devise Helpers
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
