@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160803015242) do
 
   create_table "user2s", force: :cascade do |t|
@@ -35,6 +36,9 @@ ActiveRecord::Schema.define(version: 20160803015242) do
 
   add_index "user2s", ["email"], name: "index_user2s_on_email", unique: true
   add_index "user2s", ["reset_password_token"], name: "index_user2s_on_reset_password_token", unique: true
+=======
+ActiveRecord::Schema.define(version: 20160801223426) do
+>>>>>>> 4_crud
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -59,6 +63,7 @@ ActiveRecord::Schema.define(version: 20160803015242) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
+<<<<<<< HEAD
   create_table "wiki2s", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
@@ -70,6 +75,8 @@ ActiveRecord::Schema.define(version: 20160803015242) do
 
   add_index "wiki2s", ["user_id"], name: "index_wiki2s_on_user_id"
 
+=======
+>>>>>>> 4_crud
   create_table "wikis", force: :cascade do |t|
     t.string   "title"
     t.text     "body"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
     
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -40,4 +41,22 @@ Rails.application.routes.draw do
  root 'pages#index'
  
  
+=======
+  
+  #get 'wikis/index'
+
+  #get 'wikis/show'
+
+  #get 'wikis/edit'
+
+  #get 'wikis/new'
+  
+  resources :wikis
+
+  devise_for :users
+  
+  get 'pages/index'
+
+  root 'pages#index'
+>>>>>>> 4_crud
 end

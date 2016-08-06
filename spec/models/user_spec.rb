@@ -11,4 +11,8 @@ RSpec.describe User, type: :model do
        expect(user).to have_attributes(name: "Blocipedia User", email: "user@blocipedia.com")
      end
  end
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 4_crud
 end

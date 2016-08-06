@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 class DeviseCreateUser2s < ActiveRecord::Migration
   def change
     create_table :user2s do |t|
+=======
+class DeviseCreateUsers < ActiveRecord::Migration
+  def change
+    create_table :users do |t|
+>>>>>>> 4_crud
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -35,9 +41,16 @@ class DeviseCreateUser2s < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+<<<<<<< HEAD
     add_index :user2s, :email,                unique: true
     add_index :user2s, :reset_password_token, unique: true
     # add_index :user2s, :confirmation_token,   unique: true
     # add_index :user2s, :unlock_token,         unique: true
+=======
+    add_index :users, :email,                unique: true
+    add_index :users, :reset_password_token, unique: true
+    # add_index :users, :confirmation_token,   unique: true
+    # add_index :users, :unlock_token,         unique: true
+>>>>>>> 4_crud
   end
 end
