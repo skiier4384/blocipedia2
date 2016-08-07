@@ -26,6 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Authentication Gem
 gem 'devise'
 
+gem 'pundit'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-rails' # Pry for rails console
