@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   #get 'wikis/index'
 
   #get 'wikis/show'
@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get 'pages/index'
 
   root 'pages#index'
+  
 end
