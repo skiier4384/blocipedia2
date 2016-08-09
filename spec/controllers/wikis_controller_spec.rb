@@ -232,7 +232,7 @@ RSpec.describe WikisController, type: :controller do
           new_title = "Other Wiki Page"
           new_body = "This is another Wiki Page"
 
-          put :update, id: other_wiki.id, wiki: { title: "Other WIki Page", body: "This is another Wiki Page" }
+          put :update, id: other_wiki.id, wiki: { title: "Other Wiki Page", body: "This is another Wiki Page" }
           expect(response).to redirect_to other_wiki
         end
       end
@@ -295,7 +295,7 @@ RSpec.describe WikisController, type: :controller do
         end
 
         it "assigns Wiki.last to @wiki" do
-          post :create, {wiki: { title: "Wiki Page", body: R"This is a Wiki Page" }}
+          post :create, {wiki: { title: "Wiki Page", body: "This is a Wiki Page" }}
           expect(assigns(:wiki)).to eq Wiki.last
         end
 
