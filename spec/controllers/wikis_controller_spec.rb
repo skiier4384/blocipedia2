@@ -216,7 +216,7 @@ RSpec.describe WikisController, type: :controller do
           expect(wiki_instance.body).to eq other_wiki.body
         end
 
-        it "PUT update updates topic with expected attributes" do
+        it "PUT update updates wiki topic with expected attributes" do
           new_title = "Other Wiki Page"
           new_body = "This is another Wiki Page"
 

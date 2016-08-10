@@ -1,6 +1,6 @@
 class WikisController < ApplicationController
   
-  before_action :require_sign_in, except: [:index, :show]
+  #before_action :require_sign_in, except: [:index, :show]
   
   def index
     @wikis = policy_scope(Wiki)
