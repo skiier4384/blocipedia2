@@ -6,10 +6,7 @@ class User < ActiveRecord::Base
          
   enum role: [:standard, :premium, :admin]
   
-  before_save { self.role ||= :standard }
-         
   has_many :wikis
          
-  before_save { self.email = email.downcase if email.present? }
 
 end

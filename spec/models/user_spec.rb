@@ -49,14 +49,14 @@ RSpec.describe User, type: :model do
      
      context "premium user" do
        before do
-         user.premimum!
+         user.premium!
        end
  
        it "returns false for #standard?" do
          expect(user.standard?).to be_falsey
        end
        
-       it "returns true for #premimum?" do
+       it "returns true for #premium?" do
          expect(user.premium?).to be_truthy
        end
  
@@ -74,7 +74,7 @@ RSpec.describe User, type: :model do
          expect(user.standard?).to be_falsey
        end
        
-       it "returns false for #premimum?" do
+       it "returns false for #premium?" do
          expect(user.premium?).to be_falsey
        end
  
