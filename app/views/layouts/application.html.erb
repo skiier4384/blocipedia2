@@ -13,7 +13,7 @@
        
        <div class="pull-right user-info">
          <% if user_signed_in? %>
-           <%= current_user.name %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+           Signed in as: <strong><%= link_to current_user.name, user_path(current_user.id), :class => 'navbar-link' %></strong> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
              <% if current_user.standard? %>
                <%= link_to "Upgrade", new_charge_path, class: 'btn btn-success' %>
              <% end %>
