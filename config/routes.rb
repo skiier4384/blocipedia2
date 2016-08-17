@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :charges, only: [:new, :create]
+
   #get 'wikis/index'
 
   #get 'wikis/show'
