@@ -8,23 +8,23 @@ class WikiPolicy < ApplicationPolicy
   end
   
   def new?
-    true
+    user.present?
   end
   
   def create?
-    true
+    new?
   end
   
   def edit?
-    true
+    user.present?
   end
   
   def update?
-    true
+    edit?
   end
   
   def destroy?
-    true
+    user.present?
   end
 
   class Scope < Scope

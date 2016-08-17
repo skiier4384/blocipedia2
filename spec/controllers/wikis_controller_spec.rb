@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe WikisController, type: :controller do
   let(:my_user) { User.create!(name: "Blocipedia User", email: "user@blocipedia.com", password: "helloworld") }
   let(:other_user) { User.create!(name: "Other Blocipedia User", email: "other_user@blocipedia.com", password: "otherhelloworld")}
-  let(:my_wiki) { Wiki.create!(title: "Wiki Page", body: "This is a Wiki Page", private: true, user: my_user) }
-  let(:other_wiki) { Wiki.create!(title: "Other Wiki Page", body: "This is another Wiki Page", private: true,  user: other_user)}
+  let(:my_wiki) { Wiki.create!(title: "Wiki Page", body: "This is a Wiki Page", user: my_user) }
+  let(:other_wiki) { Wiki.create!(title: "Other Wiki Page", body: "This is another Wiki Page",  user: other_user)}
 
    context "guest" do
 
@@ -77,6 +77,12 @@ RSpec.describe WikisController, type: :controller do
     end
 
     context "standard user" do
+      
+      before :example do
+        my_user.skip_confirmation!
+        my_user.save
+        sign_in my_user
+      end
 
       describe "GET index" do
         it "returns http success" do
@@ -239,8 +245,11 @@ RSpec.describe WikisController, type: :controller do
     end
 
     context "premium user" do
-      before do
+      before :example do
+        my_user.skip_confirmation!
         my_user.premium!
+        my_user.save
+        sign_in my_user
       end
 
       describe "GET index" do
@@ -363,8 +372,11 @@ RSpec.describe WikisController, type: :controller do
     end
 
     context "admin" do
-      before do
+      before :example do
+        my_user.skip_confirmation!
         my_user.admin!
+        my_user.save
+        sign_in my_user
       end
 
       describe "GET index" do
