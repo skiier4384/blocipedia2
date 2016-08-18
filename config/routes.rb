@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :charges, only: [:new, :create]
+  resources :charges, only: [:new, :create, :destroy]
 
   #get 'wikis/index'
 
@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   #get 'wikis/edit'
 
   #get 'wikis/new'
+  
+  resources :users, only: [:show] do
+    post '/downgrade' => 'users#downgrade', as: :downgrade
+  end
   
   resources :wikis
 
