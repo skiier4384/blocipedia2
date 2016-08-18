@@ -9,20 +9,25 @@ require 'faker'
 
 # Create Users
 10.times do
-    User.create!(
+    user = User.create!(
       name: Faker::Name.name,
       email: Faker::Internet.email,
       password: Faker::Internet.password
     )
+    user.skip_confirmation!
+    user.save
 end
 
 # Create Admin
-unless User.find_by(email: "admin@blocipedia.com")
+unless User.find_by(email: "admin@example.com")
   admin = User.create!(
-    name: "admin",
-    email: "admin@blocipedia.com",
-    password: "password1234",
+    name: "admin example",
+    email: "admin@example.com",
+    password: "helloworld",
+    role: 'admin'
     )
+  admin.skip_confirmation!
+  admin.save
 end
 
 users = User.all
@@ -33,6 +38,7 @@ puts "#{User.count} users created."
   Wiki.create!(
     title: Faker::Lorem.sentence,
     body:  Faker::Lorem.paragraph,
+    private: false,
     user:  users.sample
   )
 end
