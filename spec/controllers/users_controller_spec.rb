@@ -4,15 +4,6 @@ RSpec.describe UsersController, type: :controller do
     
   let(:my_user) { User.create!(name: "Blocipedia User", email: "user@blocipedia.com", password: "helloworld") }
 
-  context "guest" do
-    describe "GET show" do
-      it "returns http redirect" do
-        get :show, {id: my_user.id }
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-  end
-
   context "standard user" do
 
     describe "GET show" do
