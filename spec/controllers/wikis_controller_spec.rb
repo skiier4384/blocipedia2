@@ -501,7 +501,7 @@ RSpec.describe WikisController, type: :controller do
 
            it "assigns Wiki.all to wikis" do
              get :index
-             expect(assigns(:wikis)).to eq([my_wiki])
+             expect(assigns(:wikis)).to eq([my_wiki, private_wiki])
            end
          end
 
@@ -519,6 +519,23 @@ RSpec.describe WikisController, type: :controller do
         it "assigns my_wiki to @wiki" do
           get :show, { id: my_wiki.id }
           expect(assigns(:wiki)).to eq(my_wiki)
+        end
+        
+        describe "private wiki" do
+          it "returns http success" do
+            get :show, { id: private_wiki.id }
+            expect(response).to have_http_status(:success)
+          end
+
+          it "renders the #show view" do
+            get :show, { id: private_wiki.id }
+            expect(response).to render_template :show
+          end
+
+          it "assigns private wiki to @wiki" do
+            get :show, { id: private_wiki.id }
+            expect(assigns(:wiki)).to eq(private_wiki)
+          end
         end
       end
 
