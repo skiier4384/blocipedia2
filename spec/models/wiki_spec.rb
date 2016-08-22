@@ -26,8 +26,8 @@ RSpec.describe Wiki, type: :model do
   
   describe "scopes" do
      before do
-       @public_wiki = Wiki.create!(name: "Public Wiki", description: "This is a private wiki", private: false)
-       @private_wiki = Wiki.create!(name: "Private Wiki", description: "This is a public wiki")
+       @public_wiki = Wiki.create!(title: "Public Wiki", body: "This is a private wiki", private: false)
+       @private_wiki = Wiki.create!(title: "Private Wiki", body: "This is a public wiki")
      end
  
      describe "visible_to(user)" do
@@ -37,7 +37,7 @@ RSpec.describe Wiki, type: :model do
        end
  
        it "returns only public wikis if user is nil" do
-         expect(Wiki.visible_to(nil)).to eq([@public_topic])
+         expect(Wiki.visible_to(nil)).to eq([@public_wiki])
        end
      end
    end
