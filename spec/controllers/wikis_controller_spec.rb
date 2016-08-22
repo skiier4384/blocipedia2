@@ -570,6 +570,22 @@ RSpec.describe WikisController, type: :controller do
           post :create, {wiki: { title: "Wiki Page", body: "This is a Wiki Page" }}
           expect(response).to redirect_to Wiki.last
         end
+        
+        describe "private wiki" do
+          it "increases the number of wikis by 1" do
+            expect{ post :create, {wiki: { title: "Private Wiki Page", body: "This is a Private Wiki Page", private: true }}}.to change(Wiki, :count).by(1)
+          end
+
+          it "assigns Wiki.last to @wiki" do
+            post :create, {wiki: { title: "Private Wiki Page", body: "This is a Private Wiki Page", private: true }}
+            expect(assigns(:wiki)).to eq Wiki.last
+          end
+
+          it "redirects to the new wiki" do
+            post :create, {wiki: { title: "Private Wiki Page", body: "This is a Private Wiki Page", private: true }}
+            expect(response).to redirect_to Wiki.last
+          end
+        end
       end
 
       describe "GET edit" do
@@ -590,6 +606,27 @@ RSpec.describe WikisController, type: :controller do
           expect(wiki_instance.id).to eq my_wiki.id
           expect(wiki_instance.title).to eq my_wiki.title
           expect(wiki_instance.body).to eq my_wiki.body
+        end
+        
+        describe "private wiki" do
+          it "returns http success" do
+            get :edit, { id: private_wiki.id }
+            expect(response).to have_http_status(:success)
+          end
+
+          it "renders the #edit view" do
+            get :edit, { id: private_wiki.id }
+            expect(response).to render_template :edit
+          end
+
+          it "assigns wiki to be updated to @wiki" do
+            get :edit, { id: private_wiki.id }
+            wiki_instance = assigns(:wiki)
+
+            expect(wiki_instance.id).to eq private_wiki.id
+            expect(wiki_instance.title).to eq private_wiki.title
+            expect(wiki_instance.body).to eq private_wiki.body
+          end
         end
       end
 
@@ -613,6 +650,27 @@ RSpec.describe WikisController, type: :controller do
           put :update, id: my_wiki.id, wiki: { title: new_title, body: new_body }
           expect(response).to redirect_to my_wiki
         end
+        
+        describe "private wiki" do
+          it "updates public wiki to private with expected attributes" do
+            new_title = "Private Wiki Page"
+            new_body = "This is a Private Wiki Page"
+
+            put :update, id: my_wiki.id, wiki: { title: new_title, body: new_body, private: true }
+            updated_wiki = assigns(:wiki)
+            expect(updated_wiki.id).to eq my_wiki.id
+            expect(updated_wiki.title).to eq new_title
+            expect(updated_wiki.body).to eq new_body
+          end
+
+          it "redirects to the updated wiki" do
+            new_title = "Private Wiki Page"
+            new_body = "This is a Private Wiki Page"
+
+            put :update, id: my_wiki.id, wiki: { title: new_title, body: new_body, private: true }
+            expect(response).to redirect_to my_wiki
+          end
+        end
       end
 
       describe "DELETE destroy" do
@@ -625,6 +683,19 @@ RSpec.describe WikisController, type: :controller do
         it "redirects to wiki wiki index" do
           delete :destroy, {id: my_wiki.id}
           expect(response).to redirect_to wikis_path
+        end
+        
+        describe "private wiki" do
+          it "deletes the wiki" do
+            delete :destroy, {id: private_wiki.id}
+            count = Wiki.count
+            expect(count).to eq 0
+          end
+
+          it "redirects to wiki index" do
+            delete :destroy, {id: private_wiki.id}
+            expect(response).to redirect_to wikis_path
+          end
         end
       end
     end
