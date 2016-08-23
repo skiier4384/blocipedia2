@@ -9,6 +9,11 @@ class WikisController < ApplicationController
   def show
     @wiki = Wiki.find(params[:id])
     authorize @wiki
+    
+    if @wiki.private && current_user.standard?
+      flash[:alert] = "You must be a premium user to view this Wiki."
+      redirect_to new_user_session_path
+    end
   end
 
   def new

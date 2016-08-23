@@ -7,6 +7,17 @@ class User < ActiveRecord::Base
   enum role: [:standard, :premium, :admin]
   
   has_many :wikis
-         
+  
+  def admin?
+    self.role == "admin"
+  end
 
+  def premium?
+    self.role == "premium"
+  end
+
+  def standard?
+    self.role == "standard"
+  end
+         
 end
