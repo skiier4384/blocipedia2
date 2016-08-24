@@ -3,19 +3,25 @@ require 'rails_helper'
 RSpec.describe WikisController, type: :controller do
   let(:my_user) { User.create!(name: "Blocipedia User", email: "user@blocipedia.com", password: "helloworld") }
   let(:other_user) { User.create!(name: "Other Blocipedia User", email: "other_user@blocipedia.com", password: "otherhelloworld")}
-  let(:my_wiki) { Wiki.create!(title: "Wiki Page", body: "This is a Wiki Page", private: true, user: my_user) }
+  let(:my_wiki) { Wiki.create!(title: "Wiki Page", body: "This is a Wiki Page", user: my_user) }
   let(:other_wiki) { Wiki.create!(title: "Other Wiki Page", body: "This is another Wiki Page", user: other_user)}
   let(:private_wiki) { Wiki.create!(title: "Private Wiki Page", body: "This is a Private Wiki Page", private: true,  user: other_user)}
 
-   context "guest" do
+  context "guest" do
 
     describe "GET index" do
+      before :example do
+          my_wiki
+          private_wiki
+      end
+      
       it "returns http success" do
         get :index
         expect(response).to have_http_status(:success)
       end
 
         it "assigns Wiki.all to wikis" do
+
           get :index
           expect(assigns(:wikis)).to eq([my_wiki])
         end
@@ -130,7 +136,7 @@ RSpec.describe WikisController, type: :controller do
         
         it "does not show private wiki" do
           get :show, { id: private_wiki.id }
-          expect(response).to redirect_to(user_path)
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -172,7 +178,7 @@ RSpec.describe WikisController, type: :controller do
 
         it "redirects private wiki to user page" do
           post :create, {wiki:  { title: "Private Wiki page", body: "This is a private wiki page", private: true }}
-          expect(response).to redirect_to(user_path(my_user.id))
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -198,7 +204,7 @@ RSpec.describe WikisController, type: :controller do
         
         it "redirects to user path for private wiki" do
           get :edit, { id: private_wiki.id }
-          expect(response).to redirect_to(user_path(my_user.id))
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -224,14 +230,14 @@ RSpec.describe WikisController, type: :controller do
         end
         
         it "does not update public wiki to private" do
-          put :update, id: my_wiki.id, wiki: { private: true }
-          updated_wiki = assigns(:wiki)
-          expect(updated_wiki.private).to eq(false)
+          @my_wiki_id = my_wiki.id
+          put :update, id: @my_wiki_id, wiki: { private: true }
+          expect(Wiki.find(@my_wiki_id).private).to eq(false)
         end
 
         it "redirects to user path for making public wiki private" do
           put :update, id: my_wiki.id, wiki: { private: true }
-          expect(response).to redirect_to(user_path(my_user.id))
+          expect(response).to redirect_to(root_path)
         end
       end
 
@@ -249,7 +255,7 @@ RSpec.describe WikisController, type: :controller do
         
         it "redirects to user path for private wiki" do
           delete :destroy, {id: private_wiki.id }
-          expect(response).to redirect_to user_path(my_user.id)
+          expect(response).to redirect_to wikis_path
         end
       end
 
@@ -334,13 +340,9 @@ RSpec.describe WikisController, type: :controller do
         describe "private wiki" do
           it "returns http success" do
             get :show, { id: private_wiki.id }
-            expect(response).to have_http_status(:success)
+            expect(response).to redirect_to root_path
           end
 
-          it "renders the #show view" do
-            get :show, { id: private_wiki.id }
-            expect(response).to render_template :show
-          end
 
           it "assigns private wiki to @wiki" do
             get :show, { id: private_wiki.id }

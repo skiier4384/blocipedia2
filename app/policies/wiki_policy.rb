@@ -1,6 +1,10 @@
 class WikiPolicy < ApplicationPolicy
   def show?
-    true
+    if record.private?
+      user.present? && (user.admin? || user == record.user)
+    else
+      true
+    end
   end
   
   def index?
@@ -8,19 +12,23 @@ class WikiPolicy < ApplicationPolicy
   end
   
   def new?
-    user.present?
+    create?
   end
   
   def create?
-    new?
+    if record.private?
+      user.present? && (user.admin? || user.premium?)
+    else
+      user.present?
+    end
   end
   
   def edit?
-    user.present?
+    update?
   end
   
   def update?
-    edit?
+    create?
   end
   
   def destroy?
