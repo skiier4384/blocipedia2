@@ -3,14 +3,9 @@ require 'rails_helper'
 RSpec.describe WikisController, type: :controller do
   let(:my_user) { User.create!(name: "Blocipedia User", email: "user@blocipedia.com", password: "helloworld") }
   let(:other_user) { User.create!(name: "Other Blocipedia User", email: "other_user@blocipedia.com", password: "otherhelloworld")}
-<<<<<<< HEAD
   let(:my_wiki) { Wiki.create!(title: "Wiki Page", body: "This is a Wiki Page", private: true, user: my_user) }
   let(:other_wiki) { Wiki.create!(title: "Other Wiki Page", body: "This is another Wiki Page", user: other_user)}
   let(:private_wiki) { Wiki.create!(title: "Private Wiki Page", body: "This is a Private Wiki Page", private: true,  user: other_user)}
-=======
-  let(:my_wiki) { Wiki.create!(title: "Wiki Page", body: "This is a Wiki Page", user: my_user) }
-  let(:other_wiki) { Wiki.create!(title: "Other Wiki Page", body: "This is another Wiki Page",  user: other_user)}
->>>>>>> 5_user_roles
 
    context "guest" do
 
