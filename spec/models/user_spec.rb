@@ -4,7 +4,13 @@ RSpec.describe User, type: :model do
  
  let(:user) { User.create!(name: "Blocipedia User", email: "user@blocipedia.com", password: "password") }
    
- it { is_expected.to have_many(:wikis) }
+ #it { is_expected.to have_many(:wikis) }
+ 
+ describe "associations" do
+    it { should have_many(:wikis) }
+    it { should have_many(:collaborations)}
+    it { should have_many(:shared_wikis).through(:collaborations).source(:wiki) }
+ end
  
  describe "attributes" do
      it "should have name and email attributes" do
@@ -83,4 +89,21 @@ RSpec.describe User, type: :model do
        end
      end
    end
- end
+   
+   describe 'collaborations' do
+     before do
+       @user = create(:user)
+       @other_user = create(:user)
+       @wiki = create(:wiki, user: @other_user)
+     end
+
+     it "returns 'nil' if the user has no shared wikis" do
+       expect(@user.shared_wikis).to be_empty
+     end
+
+     it "returns the shared wikis if they exist" do
+       @user.shared_wikis << @wiki
+       expect(@user.shared_wikis).to eq([@wiki])
+     end
+    end
+end

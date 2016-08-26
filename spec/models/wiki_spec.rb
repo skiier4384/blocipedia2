@@ -8,11 +8,11 @@ RSpec.describe Wiki, type: :model do
     it { should have_db_column(:private).of_type(:boolean) }
   end
 
-  describe "associations" do
+  describe 'associations' do
     it { should belong_to(:user) }
-    xit { should have_many(:collaborations) }
-    xit { should have_many(:users) }
-  end
+    it { should have_many(:collaborations) }
+    it { should have_many(:users).through(:collaborations)}
+end
 
   describe "validations" do
     xit { should validate_presence_of(:title) }
@@ -42,4 +42,20 @@ RSpec.describe Wiki, type: :model do
      end
    end
 
+   describe 'collaborations' do
+      before do
+        @user = create(:user)
+        @wiki = create(:wiki, user: @user)
+        @other_user = create(:user)
+      end
+
+      it "returns 'nil' if the wiki has no collaborators" do
+        expect(@wiki.users).to be_empty
+      end
+
+      it "returns the users if they exist" do
+        @wiki.users << @other_user
+        expect(@wiki.users).to eq([@other_user])
+      end
+   end
 end

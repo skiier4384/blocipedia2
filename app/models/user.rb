@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   enum role: [:standard, :premium, :admin]
   
   has_many :wikis
+  has_many :collaborations
+  has_many :shared_wikis, through: :collaborations, source: :wiki
   
   def admin?
     self.role == "admin"
