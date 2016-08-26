@@ -34,6 +34,8 @@ gem 'stripe'
 
 gem 'figaro', '1.0'
 
+gem 'redcarpet'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-rails' # Pry for rails console
