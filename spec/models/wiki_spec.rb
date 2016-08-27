@@ -26,8 +26,8 @@ end
   
   describe "scopes" do
      before do
-       @public_wiki = Wiki.create!(title: "Public Wiki", body: "This is a private wiki", private: false)
-       @private_wiki = Wiki.create!(title: "Private Wiki", body: "This is a public wiki")
+       @public_wiki = Wiki.create!(title: "Public Wiki", body: "This is a public wiki")
+       @private_wiki = Wiki.create!(title: "Private Wiki", body: "This is a private wiki", private: true)
      end
  
      describe "visible_to(user)" do
