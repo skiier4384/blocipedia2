@@ -1,11 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'faker'
+
+def create_static_user(attrs = {})
+  unless User.find_by_email(attrs[:email])
+    User.create!( attrs )
+    puts "Static User Created. email: \"#{attrs[:email]}\" password: \"#{attrs[:password]}\""
+  else
+    puts "User \"#{attrs[:email]}\" found. Skipping creation." 
+  end
+end
 
 # Create Users
 10.times do
@@ -16,14 +18,19 @@ require 'faker'
     )
 end
 
-# Create Admin
-unless User.find_by(email: "admin@blocipedia.com")
-  admin = User.create!(
-    name: "admin",
-    email: "admin@blocipedia.com",
-    password: "password1234",
-    )
-end
+
+create_static_user(
+  name: "admin",
+  email: "admin@blocipedia.com",
+  password: "password1234"
+)
+
+create_static_user(
+  name: "admin example",
+  email: "admin@example.com",
+  password: "helloworld"
+)
+
 
 users = User.all
 puts "#{User.count} users created."
