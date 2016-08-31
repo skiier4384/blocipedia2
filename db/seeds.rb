@@ -2,7 +2,9 @@ require 'faker'
 
 def create_static_user(attrs = {})
   unless User.find_by_email(attrs[:email])
-    User.create!( attrs )
+    user = User.new( attrs )
+    user.skip_confirmation!
+    user.save!
     puts "Static User Created. email: \"#{attrs[:email]}\" password: \"#{attrs[:password]}\""
   else
     puts "User \"#{attrs[:email]}\" found. Skipping creation." 
@@ -36,12 +38,24 @@ users = User.all
 puts "#{User.count} users created."
 
 # Create Wikis
-20.times do
+30.times do
   Wiki.create!(
-    title: Faker::Lorem.sentence,
-    body:  Faker::Lorem.paragraph,
+    title: Faker::ChuckNorris.fact,
+    body:  Faker::Hipster.paragraph,
     user:  users.sample
   )
+end
+
+20.times do
+  wiki = Wiki.new(
+    title: Faker::ChuckNorris.fact,
+    body:  Faker::Hipster.paragraph,
+    user:  users.sample,
+    private: true
+  ) 
+  other_users = users - [wiki.user]
+  wiki.users = other_users.sample(5)
+  wiki.save!
 end
 
 wikis = Wiki.all
